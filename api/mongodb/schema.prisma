@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../generated/mongo"
+}
+
+datasource db {
+  provider = "mongodb"
+  url = env("MONGODB_URI")
+}
+
+model Messages {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  role String
+  content String
+  chatBotId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AnalysisOpinion {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  opinion String
+  workspaceId String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
