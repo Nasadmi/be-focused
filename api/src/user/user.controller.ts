@@ -1,0 +1,49 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
+import { UserService } from './user.service';
+import { ParseCuidPipe } from 'src/parse-cuid/parse-cuid.pipe';
+import { CreateUserDTO, UpdateUserDTO } from './user.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
+import { GetIdHeader } from 'src/get-id-header/get-id-header.decorator';
+
+@Controller('user')
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @UseGuards(AuthGuard)
+  @Get()
+  async getUserWorkspaces(@GetIdHeader('id', ParseCuidPipe) id: string) {
+    const workspaces = await this.userService.getWorkspaces(id);
+    return workspaces;
+  }
+
+  @Post()
+  async createUser(@Body() user: CreateUserDTO) {
+    const newUser = await this.userService.createUser(user);
+    return {
+      id: newUser.id,
+    };
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete()
+  @HttpCode(HttpStatus.OK)
+  async deleteUser(@GetIdHeader() id: string) {
+    await this.userService.deleteUser(id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Put()
+  async updateUser(@GetIdHeader() id: string, @Body() newUser: UpdateUserDTO) {
+    return await this.userService.updateUser(newUser, id);
+  }
+}
