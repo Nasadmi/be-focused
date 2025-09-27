@@ -6,6 +6,7 @@
     "<rootDir>/src/**/*.spec.ts"
   ],
   "moduleNameMapper": {
-    "^generated/(.*)$": "<rootDir>/generated/$1"
+    "^generated/(.*)$": "<rootDir>/generated/$1",
+    "^src/(.*)$": "<rootDir>/src/$1"
   }
 }

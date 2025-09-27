@@ -14,15 +14,19 @@ import { ParseCuidPipe } from 'src/parse-cuid/parse-cuid.pipe';
 import { CreateUserDTO, UpdateUserDTO } from './user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { GetIdHeader } from 'src/get-id-header/get-id-header.decorator';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwt: JwtService,
+  ) {}
 
   @UseGuards(AuthGuard)
   @Get()
   async getUserWorkspaces(@GetIdHeader('id', ParseCuidPipe) id: string) {
-    const workspaces = await this.userService.getWorkspaces(id);
+    const workspaces = await this.userService.getUserWorkspaces(id);
     return workspaces;
   }
 
@@ -30,7 +34,7 @@ export class UserController {
   async createUser(@Body() user: CreateUserDTO) {
     const newUser = await this.userService.createUser(user);
     return {
-      id: newUser.id,
+      token: await this.jwt.signAsync({ id: newUser.id }),
     };
   }
 
@@ -43,7 +47,13 @@ export class UserController {
 
   @UseGuards(AuthGuard)
   @Put()
-  async updateUser(@GetIdHeader() id: string, @Body() newUser: UpdateUserDTO) {
-    return await this.userService.updateUser(newUser, id);
+  async updateUser(
+    @GetIdHeader() userId: string,
+    @Body() newUser: UpdateUserDTO,
+  ) {
+    const updatedUser = await this.userService.updateUser(newUser, userId);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { id, password, ...rest } = updatedUser;
+    return rest;
   }
 }

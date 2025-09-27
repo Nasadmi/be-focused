@@ -7,7 +7,7 @@ import { hash } from 'bcrypt';
 export class UserService {
   constructor(private readonly postgres: PostgresService) {}
 
-  async getWorkspaces(id: string) {
+  async getUserWorkspaces(id: string) {
     return await this.postgres.workspace.findMany({
       where: {
         userId: id,
@@ -21,10 +21,13 @@ export class UserService {
   }
 
   async updateUser(user: UpdateUserDTO, id: string) {
+    if (user.password) {
+      user.password = await hash(user.password, process.env.HASH_ROUNDS || 10);
+    }
     return await this.postgres.user.update({ where: { id }, data: user });
   }
 
   async deleteUser(id: string) {
-    return await this.postgres.user.delete({ where: { id } });
+    await this.postgres.user.delete({ where: { id } });
   }
 }
