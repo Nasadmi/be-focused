@@ -1,0 +1,23 @@
+h1::before {
+  animation-name: TitleBorderBottom;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+
+@keyframes TitleBorderBottom {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  50% {
+    transform: scaleX(.5);
+  }
+
+  100% {
+    transform: scaleX(0);
+    transform-origin: right;
+  }
+}
