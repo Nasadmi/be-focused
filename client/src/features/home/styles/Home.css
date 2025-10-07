@@ -1,12 +1,12 @@
 h1::before {
-  animation-name: TitleBorderBottom;
+  animation-name: translate;
   animation-timing-function: ease-in-out;
   animation-duration: 2s;
   animation-iteration-count: infinite;
 }
 
 
-@keyframes TitleBorderBottom {
+@keyframes translate {
   0% {
     transform: scaleX(0);
     transform-origin: left;

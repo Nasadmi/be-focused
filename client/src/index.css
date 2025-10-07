@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Victor+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
@@ -18,3 +19,8 @@ html,
   DARK: purple, violet, indigo, black
   GRAY SCALE: slate, gray, zinc, neutral, stone
 */
+
+@theme {
+  --font-victor: "Victor Mono", monospace;
+  --font-alan: "Alan Sans", system-ui, sans-serif;
+}
