@@ -31,7 +31,7 @@ export const Home = () => {
       <ul className="flex flex-col lg:flex-row md:flex-row justify-center items-center gap-10 w-[60%]">
         <li>
           <Link
-            to={"/sign-up"}
+            to={"/auth/sign-up"}
             className="p-3 bg-sky-500 rounded-2xl font-medium text-2xl shadow-md dark:bg-violet-600 dark:text-white font-alan"
           >
             Sign Up
@@ -39,7 +39,7 @@ export const Home = () => {
         </li>
         <li>
           <Link
-            to={"/log-in"}
+            to={"/auth/log-in"}
             className="p-3 bg-sky-500 rounded-2xl font-medium text-2xl shadow-md dark:bg-violet-600 dark:text-white font-alan"
           >
             Log In
