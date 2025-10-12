@@ -2,5 +2,7 @@
   "cSpell.words": [
     "cuid",
     "paralleldrive"
-  ]
+  ],
+  "editor.tabSize": 2,
+  "typescript.preferences.quoteStyle": "single"
 }
