@@ -84,7 +84,7 @@ export const AuthForm = ({ handleSubmit }: { handleSubmit: (e: React.FormEvent<H
       />
       <button
         type="submit"
-        aria-label="Submit Sign Up Form"
+        aria-label="Submit Form"
         className="self-center mt-4 cursor-pointer text-white bg-blue-600 p-2 rounded-4xl hover:bg-white hover:text-blue-500 transition-all dark:text-zinc-900 dark:bg-violet-600 dark:hover:bg-zinc-900 dark:hover:text-violet-500"
       >
         <ArrowRightCircleIcon className="size-6" strokeWidth={"2px"} />
