@@ -3,7 +3,7 @@ import type React from "react";
 import { useRef, useLayoutEffect, useState } from "react";
 import { useTheme } from "@hooks/useTheme";
 
-export const AuthForm = ({ handleSubmit }: { handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void }) => {
+export const AuthForm = ({ handleSubmit, error }: { handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void, error?: string }) => {
   const [lettersEmail, setLettersEmail] = useState<number>(0);
   const [lettersPassword, setLettersPassword] = useState<number>(0);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -31,7 +31,7 @@ export const AuthForm = ({ handleSubmit }: { handleSubmit: (e: React.FormEvent<H
 
   return (
     <form
-      className="flex flex-col gap-1 dark:bg-stone-800 bg-neutral-300 p-4 w-[40%]"
+      className="flex flex-col gap-1 dark:bg-stone-800 bg-neutral-300 p-4 lg:w-[40%] md:w-[40%] w-[90%]"
       onSubmit={handleSubmit}
     >
       <label
@@ -58,6 +58,7 @@ export const AuthForm = ({ handleSubmit }: { handleSubmit: (e: React.FormEvent<H
           }% 100%`,
         }}
         onChange={handleChange}
+        required
       />
       <label
         htmlFor="password"
@@ -82,6 +83,7 @@ export const AuthForm = ({ handleSubmit }: { handleSubmit: (e: React.FormEvent<H
         }}
         onChange={handleChange}
       />
+      { error &&  <span className='self-center text-red-500 font-alan font-bold decoration-2 decoration-red-700'>{String(error).charAt(0).toUpperCase() + String(error).slice(1)}</span> }
       <button
         type="submit"
         aria-label="Submit Form"

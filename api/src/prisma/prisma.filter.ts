@@ -7,7 +7,7 @@ import {
 import { Response } from 'express';
 import { Prisma } from 'generated/postgres';
 
-@Catch()
+@Catch(Prisma.PrismaClientKnownRequestError)
 export class PrismaFilter implements ExceptionFilter {
   catch(
     exception: Prisma.PrismaClientKnownRequestError,

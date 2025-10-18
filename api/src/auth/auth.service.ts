@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PostgresService } from 'src/postgres/postgres.service';
 import { compare } from 'bcrypt';
@@ -12,13 +17,13 @@ export class AuthService {
 
   async login(email: string, password: string) {
     if (!email || !password) {
-      throw new UnauthorizedException('No data provided');
+      throw new BadRequestException('No data provided');
     }
 
     const user = await this.postgres.user.findUnique({ where: { email } });
 
     if (!user) {
-      throw new UnauthorizedException('Unauthorized');
+      throw new NotFoundException('User not found');
     }
 
     if (!(await compare(password, user.password))) {

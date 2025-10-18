@@ -1,15 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-
-class SignInDTO {
-  @IsEmail()
-  email: string;
-
-  @IsString()
-  @IsNotEmpty()
-  password: string;
-}
+import { SignInDTO } from './auth.dto';
 
 @Controller('auth')
 export class AuthController {
